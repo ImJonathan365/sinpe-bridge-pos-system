@@ -1,6 +1,6 @@
 # SINPE Bridge POS System
 
-Este proyecto es un sistema de Punto de Venta desarrollado con Laravel 12 y Filament 4. Su objetivo es registrar órdenes de compra y recibir confirmaciones automáticas de pago desde la SINPE Bridge API.
+Este proyecto es un sistema de Punto de Venta desarrollado con Laravel 12 y Filament 5. Su objetivo es registrar órdenes de compra y recibir confirmaciones automáticas de pago desde la SINPE Bridge API.
 
 Este sistema forma parte de un proyecto académico del curso de **Ingeniería de Software**, cuyo propósito es simular una solución tecnológica que optimice el proceso de validación de pagos mediante SINPE Móvil, reduciendo fraudes, errores humanos y tiempos de espera en los comercios.
 
