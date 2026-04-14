@@ -1,59 +1,217 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# SINPE Bridge POS System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este proyecto es un sistema de Punto de Venta desarrollado con Laravel 12 y Filament 4. Su objetivo es registrar órdenes de compra y recibir confirmaciones automáticas de pago desde la SINPE Bridge API.
 
-## About Laravel
+Este sistema forma parte de un proyecto académico del curso de **Ingeniería de Software**, cuyo propósito es simular una solución tecnológica que optimice el proceso de validación de pagos mediante SINPE Móvil, reduciendo fraudes, errores humanos y tiempos de espera en los comercios.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Propósito del Sistema
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+El POS permite a los comercios:
 
-## Learning Laravel
+* Registrar órdenes de venta.
+* Consultar el estado de los pagos.
+* Recibir confirmaciones automáticas desde la SINPE Bridge API.
+* Gestionar transacciones de manera eficiente y segura.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+Este sistema se integra con la **SINPE Bridge API**, la cual valida los comprobantes de pago y notifica al POS cuando una transacción ha sido aprobada.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## Requisitos
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Antes de empezar, asegúrate de tener instalado lo siguiente:
 
-### Premium Partners
+* PHP 8.2 o superior
+* Composer
+* Laravel 12
+* Node.js y npm
+* Git
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Opcional pero recomendado:
 
-## Contributing
+* Laravel Herd, XAMPP o Laragon
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## Clonar el Proyecto
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+git clone https://github.com/ImJonathan365/sinpe-bridge-pos-system.git
+cd pos-system
+code .
+```
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Instalación y Ejecución en Linux
 
-## License
+1. Instalar dependencias de PHP:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+composer install
+```
+
+2. Instalar dependencias de Node.js:
+
+```bash
+npm install
+```
+
+3. Configurar variables de entorno:
+
+```bash
+cp .env.example .env
+```
+
+4. Generar la clave de la aplicación:
+
+```bash
+php artisan key:generate
+```
+
+5. Configurar la integración con la API en el archivo `.env`:
+
+```env
+SINPE_BRIDGE_API_URL=https://api.ejemplo.com
+SINPE_BRIDGE_API_KEY=tu_api_key
+SINPE_BRIDGE_API_SECRET=tu_api_secret
+```
+
+6. Compilar los recursos frontend:
+
+```bash
+npm run build
+```
+
+7. Crear un usuario administrador de Filament:
+
+```bash
+php artisan make:filament-user
+```
+
+8. Iniciar el servidor de desarrollo:
+
+```bash
+php artisan serve
+```
+
+---
+
+## Instalación y Ejecución en Windows
+
+1. Instalar dependencias:
+
+```powershell
+composer install
+npm install
+```
+
+2. Configurar el entorno:
+
+```powershell
+copy .env.example .env
+php artisan key:generate
+```
+
+3. Configurar la integración con la SINPE Bridge API en el archivo `.env`.
+
+4. Compilar los recursos:
+
+```powershell
+npm run build
+```
+
+5. Crear el usuario administrador:
+
+```powershell
+php artisan make:filament-user
+```
+
+6. Iniciar la aplicación:
+
+```powershell
+php artisan serve
+```
+
+---
+
+## Probar que Funciona
+
+Con el servidor en ejecución, abre en tu navegador:
+
+* Aplicación:
+  `http://127.0.0.1:8000`
+
+* Panel de administración (Filament):
+  `http://127.0.0.1:8000/admin`
+
+---
+
+## Integración con SINPE Bridge API
+
+El sistema POS recibe confirmaciones de pago desde la API mediante un endpoint REST.
+
+---
+
+## Funcionalidades Principales
+
+* Registro de órdenes de pago.
+* Consulta del estado de las órdenes.
+* Integración con la SINPE Bridge API.
+* Confirmación automática de pagos.
+* Gestión de órdenes pendientes, pagadas y vencidas.
+* Panel administrativo con Filament.
+
+---
+
+## Dependencias Principales
+
+El proyecto utiliza, entre otras:
+
+* `laravel/framework`
+* `filament/filament`
+* `livewire/livewire`
+* `spatie/laravel-permission` (opcional)
+
+Todas las dependencias se encuentran definidas en `composer.json`.
+
+---
+
+## Flujo Simplificado del Sistema
+
+1. El cajero registra una orden en el POS.
+2. El cliente realiza el pago mediante SINPE Móvil.
+3. La SINPE Bridge API valida el comprobante.
+4. La API notifica al POS.
+5. El POS marca la orden como **Pagada**.
+6. El cajero entrega el producto al cliente.
+
+---
+
+## Estados de las Órdenes
+
+| Estado       | Descripción                       |
+| ------------ | --------------------------------- |
+| Pending      | Orden creada y en espera de pago. |
+| Paid         | Pago confirmado correctamente.    |
+| Expired      | Orden vencida.                    |
+| Rejected     | Pago inválido.                    |
+| Under Review | En revisión manual.               |
+
+---
+
+## Proyecto Académico
+
+Desarrollado para el curso:
+
+**Ingeniería de Software (IF-7100)**
+**Universidad de Costa Rica**
+Carrera de Informática Empresarial
+
+---
+
+## Licencia
+
+Este proyecto es de carácter académico y se desarrolla únicamente con fines educativos.
