@@ -39,7 +39,7 @@ Opcional pero recomendado:
 
 ```bash
 git clone https://github.com/ImJonathan365/sinpe-bridge-pos-system.git
-cd pos-system
+cd sinpe-bridge-pos-system
 code .
 ```
 
