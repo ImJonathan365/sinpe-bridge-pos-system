@@ -113,6 +113,7 @@ npm install
 ```powershell
 copy .env.example .env
 php artisan key:generate
+php artisan migrate
 ```
 
 3. Configurar la integración con la SINPE Bridge API en el archivo `.env`.
