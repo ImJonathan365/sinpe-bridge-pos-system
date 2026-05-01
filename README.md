@@ -71,12 +71,10 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-5. Configurar la integración con la API en el archivo `.env`:
+5. Crear base de datos y poner nombre de la base de datos en `.env`:
 
 ```env
-SINPE_BRIDGE_API_URL=https://api.ejemplo.com
-SINPE_BRIDGE_API_KEY=tu_api_key
-SINPE_BRIDGE_API_SECRET=tu_api_secret
+DB_DATABASE=nombre_de_tu_base_de_datos
 ```
 
 6. Compilar los recursos frontend:
@@ -85,10 +83,10 @@ SINPE_BRIDGE_API_SECRET=tu_api_secret
 npm run build
 ```
 
-7. Crear un usuario administrador de Filament:
+7. Correr migraciones y seeders:
 
 ```bash
-php artisan make:filament-user
+php artisan migrate:fresh --seed
 ```
 
 8. Iniciar el servidor de desarrollo:
@@ -113,10 +111,13 @@ npm install
 ```powershell
 copy .env.example .env
 php artisan key:generate
-php artisan migrate
 ```
 
-3. Configurar la integración con la SINPE Bridge API en el archivo `.env`.
+3. Crear base de datos y poner nombre de la base de datos en `.env`.
+
+```env
+DB_DATABASE=nombre_de_tu_base_de_datos
+```
 
 4. Compilar los recursos:
 
@@ -124,10 +125,10 @@ php artisan migrate
 npm run build
 ```
 
-5. Crear el usuario administrador:
+5. Correr migraciones y seeders
 
 ```powershell
-php artisan make:filament-user
+php artisan migrate:fresh --seed
 ```
 
 6. Iniciar la aplicación:
