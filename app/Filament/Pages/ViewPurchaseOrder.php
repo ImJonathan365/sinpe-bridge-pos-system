@@ -12,9 +12,9 @@ class ViewPurchaseOrder extends Page
 {
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-eye';
 
-    protected static ?string $navigationLabel = 'View Order';
+    protected static ?string $navigationLabel = 'Ver orden';
 
-    protected static UnitEnum|string|null $navigationGroup = 'Purchase Orders';
+    protected static UnitEnum|string|null $navigationGroup = 'Ordenes de compra';
 
     protected static ?int $navigationSort = 3;
 
@@ -29,11 +29,27 @@ class ViewPurchaseOrder extends Page
     /** @var array<string, mixed>|null */
     public ?array $order = null;
 
+    public bool $showTokenModal = false;
+
     public function mount(string $orderNumber, OrdersApiClient $ordersApiClient): void
     {
         $this->orderNumber = $orderNumber;
 
         $this->loadOrder($ordersApiClient);
+
+        if (request()->query('showToken') === '1') {
+            $this->showTokenModal = true;
+        }
+    }
+
+    public function openTokenModal(): void
+    {
+        $this->showTokenModal = true;
+    }
+
+    public function closeTokenModal(): void
+    {
+        $this->showTokenModal = false;
     }
 
     public function refreshOrder(OrdersApiClient $ordersApiClient): void
@@ -49,7 +65,7 @@ class ViewPurchaseOrder extends Page
             report($exception);
 
             Notification::make()
-                ->title('Could not load purchase order')
+                ->title('No se pudo cargar la orden de compra')
                 ->danger()
                 ->send();
 
@@ -59,6 +75,6 @@ class ViewPurchaseOrder extends Page
 
     public function getTitle(): string
     {
-        return 'Purchase Order Details';
+        return 'Detalle de orden de compra';
     }
 }

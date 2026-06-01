@@ -28,7 +28,7 @@ class OrdersApiClient
     public function listOrders(): array
     {
         return $this->client()
-            ->get('/orders')
+            ->get('/orders', ['id_pos' => config('sinpe_api.id_pos')])
             ->throw()
             ->json();
     }
