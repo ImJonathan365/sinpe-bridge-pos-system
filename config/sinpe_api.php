@@ -6,4 +6,5 @@ return [
 	'retries' => (int) env('SINPE_API_RETRIES', 2),
 	'retry_sleep_ms' => (int) env('SINPE_API_RETRY_SLEEP_MS', 300),
 	'token' => env('SINPE_API_TOKEN'),
+	'id_pos' => env('SINPE_API_ID_POS', 'POS-TIENDA-01'),
 ];

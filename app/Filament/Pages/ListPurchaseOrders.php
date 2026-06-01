@@ -12,14 +12,16 @@ class ListPurchaseOrders extends Page
 {
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-queue-list';
 
-    protected static ?string $navigationLabel = 'List Orders';
+    protected static ?string $navigationLabel = 'Listar ordenes';
 
-    protected static UnitEnum|string|null $navigationGroup = 'Purchase Orders';
+    protected static UnitEnum|string|null $navigationGroup = 'Ordenes de compra';
 
     protected static ?int $navigationSort = 2;
 
     protected string $view = 'filament.pages.list-purchase-orders';
 
+    protected static ?string $title = 'Ordenes de compra';
+    
     /**
      * @var array<int, array<string, mixed>>
      */
@@ -45,7 +47,7 @@ class ListPurchaseOrders extends Page
             $this->orders = [];
 
             Notification::make()
-                ->title('Could not load orders from API')
+                ->title('No se pudieron cargar las ordenes desde el API')
                 ->danger()
                 ->send();
         }

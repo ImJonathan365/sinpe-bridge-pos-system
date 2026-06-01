@@ -13,19 +13,27 @@ class CreatePurchaseOrder extends Page
 {
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-document-plus';
 
-    protected static ?string $navigationLabel = 'Create Order';
+    protected static ?string $navigationLabel = 'Crear orden';
 
-    protected static UnitEnum|string|null $navigationGroup = 'Purchase Orders';
+    protected static UnitEnum|string|null $navigationGroup = 'Ordenes de compra';
 
     protected static ?int $navigationSort = 1;
 
     protected string $view = 'filament.pages.create-purchase-order';
 
+    protected static ?string $title = 'Crear orden de compra';
+
     public string $order_number = '';
+
+    public string $id_pos = 'POS-TIENDA-01';
 
     public string $payment_method = 'sinpe';
 
     public string $ordered_at = '';
+
+    public string $correlation_token = '';
+
+    public string $expires_at = '';
 
     /**
      * @var array<int, array{product_id: string, quantity: int}>
@@ -98,7 +106,7 @@ class CreatePurchaseOrder extends Page
 
         if ($payloadProducts === []) {
             Notification::make()
-                ->title('Add at least one product line')
+                ->title('Agrega al menos una linea de producto')
                 ->danger()
                 ->send();
 
@@ -107,9 +115,11 @@ class CreatePurchaseOrder extends Page
 
         $payload = [
             'order_number' => $this->order_number,
-            'status' => 'pending',
+            'id_pos' => $this->id_pos,
             'payment_method' => $this->payment_method,
             'ordered_at' => now()->parse($this->ordered_at)->format('Y-m-d\\TH:i:s'),
+            'expires_at' => now()->parse($this->expires_at)->format('Y-m-d\\TH:i:s'),
+            'correlation_token' => $this->correlation_token,
             'products' => $payloadProducts,
             'amount' => round($amount, 2),
         ];
@@ -120,16 +130,16 @@ class CreatePurchaseOrder extends Page
             $ordersApiClient->createOrder($payload);
 
             Notification::make()
-                ->title('Order sent to API successfully')
+                ->title('Orden enviada al API correctamente')
                 ->success()
                 ->send();
 
-            $this->redirect(ViewPurchaseOrder::getUrl(['orderNumber' => $orderNumber]), navigate: true);
+            $this->redirect(ViewPurchaseOrder::getUrl(['orderNumber' => $orderNumber]) . '?showToken=1', navigate: true);
         } catch (\Throwable $exception) {
             report($exception);
 
             Notification::make()
-                ->title('Could not send order to API')
+                ->title('No se pudo enviar la orden al API')
                 ->danger()
                 ->send();
         }
@@ -158,8 +168,11 @@ class CreatePurchaseOrder extends Page
     protected function resetForm(): void
     {
         $this->order_number = 'ORD-' . now()->format('Ymd-His');
+        $this->id_pos = 'POS-TIENDA-01';
         $this->payment_method = 'sinpe';
         $this->ordered_at = now()->format('Y-m-d H:i:s');
+        $this->correlation_token = '';
+        $this->expires_at = now()->addMinutes(15)->format('Y-m-d H:i:s');
         $this->items = [
             [
                 'product_id' => '',
