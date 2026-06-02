@@ -171,7 +171,7 @@ class CreatePurchaseOrder extends Page
         $this->id_pos = 'POS-TIENDA-01';
         $this->payment_method = 'sinpe';
         $this->ordered_at = now()->format('Y-m-d H:i:s');
-        $this->correlation_token = '';
+        $this->correlation_token = $this->generateCorrelationToken();
         $this->expires_at = now()->addMinutes(15)->format('Y-m-d H:i:s');
         $this->items = [
             [
@@ -179,5 +179,10 @@ class CreatePurchaseOrder extends Page
                 'quantity' => 1,
             ],
         ];
+    }
+
+    protected function generateCorrelationToken(): string
+    {
+        return str_pad((string) random_int(0, 999999), 6, '0', STR_PAD_LEFT);
     }
 }
