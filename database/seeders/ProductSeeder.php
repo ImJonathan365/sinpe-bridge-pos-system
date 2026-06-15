@@ -16,7 +16,7 @@ class ProductSeeder extends Seeder
         Product::create([
             'code' => 'PROD001',
             'name' => 'Laptop Dell XPS 13',
-            'price' => 1299.99,
+            'price' => 3000.00,
             'active' => true,
         ]);
 
